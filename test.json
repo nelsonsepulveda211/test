@@ -1,0 +1,1805 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "title": "Pagos con suscripción",
+      "description": "Servicio para suscribirse y realizar el pago de la suscripcion siendo cliente Nequi.",
+      "version": "2020-10-08T10:00:49Z"
+    },
+    "host": "api.sandbox.nequi.com",
+    "basePath": "/subscriptions/v2",
+    "schemes": [
+      "https"
+    ],
+    "tags": [{
+        "name": "Pagos",
+        "description": "Pago débito automático y consultar estado de pago",
+        "externalDocs": {
+          "description": "Más Información",
+          "url": "http://conecta.nequi.com.co/?q=apis/pagos-con-suscripcion"
+        }
+      },
+      {
+        "name": "Suscripciones",
+        "description": "Crear y consultar suscripción",
+        "externalDocs": {
+          "description": "Más Información",
+          "url": "http://conecta.nequi.com.co/?q=apis/pagos-con-suscripcion"
+        }
+      },
+      {
+        "name": "Reversos",
+        "description": "Reversar una transacción de debitdo automático",
+        "externalDocs": {
+          "description": "Más información",
+          "url": "http://conecta.nequi.com.co/?q=apis/pagos-con-suscripcion"
+        }
+      }
+    ],
+    "paths": {
+      "/-services-reverseservices-reversetransaction": {
+        "post": {
+          "tags": [
+            "Reversos"
+          ],
+          "summary": "Reversar transacción",
+          "description": "Permite realizar el reverso de una transacción que no se logro completar exitosamente. Para la transacción de tipo pago con suscripción/débito automático enviar en el type = automaticPayment.",
+          "consumes": [
+            "application/json"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [{
+              "in": "body",
+              "name": "body",
+              "description": "Objeto de la petición",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/ReversionRQ"
+              }
+            },
+            {
+              "in": "header",
+              "name": "Authorization",
+              "description": "Token de seguridad generado en formato 'Bearer ${access_token}'",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "in": "header",
+              "name": "x-api-key",
+              "description": "Api key obtenido en conecta",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "200 response",
+              "schema": {
+                "$ref": "#/definitions/ReversionRS"
+              }
+            },
+            "403": {
+              "description": "Access Key, Secret Key o API Key invalidos"
+            },
+            "500": {
+              "description": "Error técnico en el servidor, posible falla entre componentes o malformación del cuerpo de la petición"
+            }
+          },
+          "security": [
+  
+          ]
+        }
+      },
+      "/-services-subscriptionpaymentservice-newsubscription": {
+        "post": {
+          "tags": [
+            "Suscripciones"
+          ],
+          "summary": "Crear nueva suscripción",
+          "description": "Permite crear una nueva suscripción.",
+          "consumes": [
+            "application/json"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [{
+              "in": "body",
+              "name": "body",
+              "description": "Objeto de la petición",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/NewSubscriptionRQ"
+              }
+            },
+            {
+              "in": "header",
+              "name": "Authorization",
+              "description": "Token de seguridad generado en formato 'Bearer ${access_token}'",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "in": "header",
+              "name": "x-api-key",
+              "description": "Api key obtenido en conecta",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "200 response",
+              "schema": {
+                "$ref": "#/definitions/NewSubscriptionRS"
+              }
+            },
+            "403": {
+              "description": "Access Key, Secret Key o API Key invalidos"
+            },
+            "500": {
+              "description": "Error técnico en el servidor, posible falla entre componentes o malformación del cuerpo de la petición"
+            }
+          },
+          "security": []
+        }
+      },
+      "/-services-subscriptionpaymentservice-getsubscription": {
+        "post": {
+          "tags": [
+            "Suscripciones"
+          ],
+          "summary": "Consultar suscripción",
+          "description": "Permite consultar una suscripción",
+          "consumes": [
+            "application/json"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [{
+              "in": "body",
+              "name": "body",
+              "description": "Objeto de la petición",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/GetSubscriptionRQ"
+              }
+            },
+            {
+              "in": "header",
+              "name": "Authorization",
+              "description": "Token de seguridad generado en formato 'Bearer ${access_token}'",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "in": "header",
+              "name": "x-api-key",
+              "description": "Api key obtenido en conecta",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "200 response",
+              "schema": {
+                "$ref": "#/definitions/GetSubscriptionRS"
+              }
+            },
+            "403": {
+              "description": "Access Key, Secret Key o API Key invalidos"
+            },
+            "500": {
+              "description": "Error técnico en el servidor, posible falla entre componentes o malformación del cuerpo de la petición"
+            }
+          },
+          "security": []
+        }
+      },
+      "/-services-subscriptionpaymentservice-automaticpayment": {
+        "post": {
+          "tags": [
+            "Pagos"
+          ],
+          "summary": "Pago automático de suscripción",
+          "description": "Permite realizar el pago automático de la subs realizada",
+          "consumes": [
+            "application/json"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [{
+              "in": "body",
+              "name": "body",
+              "description": "Objeto de la petición",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/AutomaticPaymentRQ"
+              }
+            },
+            {
+              "in": "header",
+              "name": "Authorization",
+              "description": "Token de seguridad generado en formato 'Bearer ${access_token}'",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "in": "header",
+              "name": "x-api-key",
+              "description": "Api key obtenido en conecta",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "200 response",
+              "schema": {
+                "$ref": "#/definitions/AutomaticPaymentRS"
+              }
+            },
+            "403": {
+              "description": "Access Key, Secret Key o API Key invalidos"
+            },
+            "500": {
+              "description": "Error técnico en el servidor, posible falla entre componentes o malformación del cuerpo de la petición"
+            }
+          },
+          "security": []
+        }
+      },
+      "/-services-subscriptionpaymentservice-getstatuspayment": {
+        "post": {
+          "tags": [
+            "Pagos"
+          ],
+          "summary": "Consultar estado de pago",
+          "description": "Permite colsultar el estado del pago de la suscripción",
+          "consumes": [
+            "application/json"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [{
+              "in": "body",
+              "name": "body",
+              "description": "Objeto de la petición",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/GetStatusPaymentRQ"
+              }
+            },
+            {
+              "in": "header",
+              "name": "Authorization",
+              "description": "Token de seguridad generado en formato 'Bearer ${access_token}'",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "in": "header",
+              "name": "x-api-key",
+              "description": "Api key obtenido en conecta",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "200 response",
+              "schema": {
+                "$ref": "#/definitions/GetStatusPaymentRS"
+              }
+            },
+            "403": {
+              "description": "Access Key, Secret Key o API Key invalidos"
+            },
+            "500": {
+              "description": "Error técnico en el servidor, posible falla entre componentes o malformación del cuerpo de la petición"
+            }
+          },
+          "security": []
+        }
+      }
+    },
+    "securityDefinitions": {
+      "api_key": {
+        "type": "apiKey",
+        "name": "x-api-key",
+        "in": "header"
+      },
+      "OAuth": {
+        "type": "apiKey",
+        "name": "Authorization",
+        "in": "header",
+        "x-amazon-apigateway-authtype": "cognito_user_pools"
+      }
+    },
+    "definitions": {
+      "ReversionRQ": {
+        "type": "object",
+        "title": "RequestMessage",
+        "required": [
+          "RequestMessage"
+        ],
+        "properties": {
+          "RequestMessage": {
+            "title": "RequestMessage",
+            "type": "object",
+            "description": "Estructura genérica del mensaje con los encabezados y el cuerpo",
+            "required": [
+              "RequestHeader",
+              "RequestBody"
+            ],
+            "properties": {
+              "RequestHeader": {
+                "title": "RequestHeader",
+                "type": "object",
+                "description": "Contiene los encabezados genéricos de aplicación del mensaje",
+                "required": [
+                  "Channel",
+                  "RequestDate",
+                  "MessageID",
+                  "ClientID",
+                  "Destination"
+                ],
+                "properties": {
+                  "Channel": {
+                    "type": "string",
+                    "description": "Canal por el que se envia el mensaje",
+                    "default": "PDA05-C001"
+                  },
+                  "RequestDate": {
+                    "type": "string",
+                    "description": "Datestamp o Timestamp completo, con milisegundos precisión 3",
+                    "default": "2017-06-21T20:26:12.654Z"
+                  },
+                  "MessageID": {
+                    "description": "Identificador unico de la transacción, alfanumérico de longitud 10, atributo con proposito de trazabilidad",
+                    "type": "string",
+                    "default": "1234567890"
+                  },
+                  "ClientID": {
+                    "description": "Terminal, Nodo, Servidor, Contenedor desde donde se lanza la petición, atributo con proposito de trazabilidad",
+                    "type": "string",
+                    "default": "12345"
+                  },
+                  "Destination": {
+                    "title": "Destination",
+                    "type": "object",
+                    "description": "Contiene los atributos que definen la región y versión del servicio",
+                    "required": [
+                      "ServiceName",
+                      "ServiceOperation",
+                      "ServiceRegion",
+                      "ServiceVersion"
+                    ],
+                    "properties": {
+                      "ServiceName": {
+                        "description": "Nombre del servicio a ejecutar",
+                        "type": "string",
+                        "default": "ReverseServices"
+                      },
+                      "ServiceOperation": {
+                        "description": "Operación del servicio a ejecutar",
+                        "type": "string",
+                        "default": "reverseTransaction"
+                      },
+                      "ServiceRegion": {
+                        "description": "Región en el cual se debe ejecutar el servicio",
+                        "type": "string",
+                        "default": "C001"
+                      },
+                      "ServiceVersion": {
+                        "description": "Versión a ejecutar del servicio",
+                        "type": "string",
+                        "default": "1.0.0"
+                      }
+                    }
+                  }
+                }
+              },
+              "RequestBody": {
+                "title": "RequestBody",
+                "type": "object",
+                "description": "Contiene los parametros o cuerpo del servicio a consumir",
+                "required": [
+                  "any"
+                ],
+                "properties": {
+                  "any": {
+                    "title": "any",
+                    "type": "object",
+                    "description": "Contiene el elemento con los atributos especificos del servicio a consumir",
+                    "required": [
+                      "reversionRQ"
+                    ],
+                    "properties": {
+                      "reversionRQ": {
+                        "title": "reversionRQ",
+                        "type": "object",
+                        "description": "Contiene los atributos del servicio de validación de cliente",
+                        "required": [
+                          "phoneNumber",
+                          "value",
+                          "code",
+                          "messageId",
+                          "type"
+                        ],
+                        "properties": {
+                          "phoneNumber": {
+                            "type": "string",
+                            "description": "Número de celular del cliente NEQUI",
+                            "default": "3998764643"
+                          },
+                          "value": {
+                            "type": "string",
+                            "format": "number",
+                            "description": "Valor de la transacción",
+                            "default": "100"
+                          },
+                          "code": {
+                            "type": "string",
+                            "format": "number",
+                            "description": "Tipo y número de identificación del comercio",
+                            "default": "NIT_1"
+                          },
+                          "messageId": {
+                            "type": "string",
+                            "format": "number",
+                            "description": "Identificador de la transacción a reversar",
+                            "default": "9857836163"
+                          },
+                          "type": {
+                            "type": "string",
+                            "format": "string",
+                            "description": "Identificador del tipo de transacción a reversar (automaticPayment)",
+                            "default": "automaticPayment"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "ReversionRS": {
+        "type": "object",
+        "title": "ResponseMessage",
+        "required": [
+          "ResponseMessage"
+        ],
+        "properties": {
+          "ResponseMessage": {
+            "title": "ResponseMessage",
+            "type": "object",
+            "description": "Estructura genérica de la respuesta con los encabezados y el cuerpo",
+            "required": [
+              "ResponseHeader",
+              "ResponseBody"
+            ],
+            "properties": {
+              "ResponseHeader": {
+                "title": "ResponseHeader",
+                "type": "object",
+                "description": "Contiene los encabezados genéricos de aplicación del mensaje",
+                "required": [
+                  "Channel",
+                  "ResponseDate",
+                  "Status",
+                  "MessageID",
+                  "ClientID",
+                  "Destination"
+                ],
+                "properties": {
+                  "Channel": {
+                    "type": "string",
+                    "description": "Canal por el que se envío el mensaje",
+                    "default": "PDA05-C001"
+                  },
+                  "ResponseDate": {
+                    "type": "string",
+                    "description": "Datestamp o Timestamp completo, con milisegundos precisión 3",
+                    "default": "2017-06-21T20:26:12.654Z"
+                  },
+                  "Status": {
+                    "title": "Status",
+                    "type": "object",
+                    "description": "Contiene los atributos que definen el resultado de la operación del servicio",
+                    "required": [
+                      "StatusCode",
+                      "StatusDesc"
+                    ],
+                    "properties": {
+                      "StatusCode": {
+                        "description": "Código que indica el resultado del servicio",
+                        "type": "string",
+                        "default": "0"
+                      },
+                      "StatusDesc": {
+                        "description": "Mensaje sobre el resultado del servicio",
+                        "type": "string",
+                        "default": "SUCCESS"
+                      }
+                    }
+                  },
+                  "MessageID": {
+                    "description": "Retorna el identificador único de la transacción",
+                    "type": "string",
+                    "default": "1234567890"
+                  },
+                  "ClientID": {
+                    "description": "Retorna la Terminal, Nodo, Servidor o Contenedor desde donde se lanzo la petición",
+                    "type": "string",
+                    "default": "12345"
+                  },
+                  "Destination": {
+                    "title": "Destination",
+                    "type": "object",
+                    "description": "Contiene la región y versión con que se ejecutó el servicio",
+                    "required": [
+                      "ServiceName",
+                      "ServiceOperation",
+                      "ServiceRegion",
+                      "ServiceVersion"
+                    ],
+                    "properties": {
+                      "ServiceName": {
+                        "description": "Nombre del servicio ejecutado",
+                        "type": "string",
+                        "default": "ReverseServices"
+                      },
+                      "ServiceOperation": {
+                        "description": "Operación del servicio ejecutada",
+                        "type": "string",
+                        "default": "reverseTransaction"
+                      },
+                      "ServiceRegion": {
+                        "description": "Región en la cual se ejecutó el servicio",
+                        "type": "string",
+                        "default": "C001"
+                      },
+                      "ServiceVersion": {
+                        "description": "Versión del servicio que se ejecuto",
+                        "type": "string",
+                        "default": "1.0.0"
+                      }
+                    }
+                  }
+                }
+              },
+              "ResponseBody": {
+                "title": "ResponseBody",
+                "type": "object",
+                "description": "Contiene el cuerpo con la respuesta del servicio",
+                "required": [
+                  "any"
+                ],
+                "properties": {
+                  "any": {
+                    "title": "any",
+                    "type": "object",
+                    "description": "Contiene el elemento con los atributos especificos de la respuesta del servicio",
+                    "required": [
+                      "reversionRS"
+                    ],
+                    "properties": {
+                      "reversionRS": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "NewSubscriptionRQ": {
+        "type": "object",
+        "title": "RequestMessage",
+        "required": [
+          "RequestMessage"
+        ],
+        "properties": {
+          "RequestMessage": {
+            "title": "RequestMessage",
+            "type": "object",
+            "description": "Estructura genérica del mensaje con los encabezados y el cuerpo",
+            "required": [
+              "RequestHeader",
+              "RequestBody"
+            ],
+            "properties": {
+              "RequestHeader": {
+                "title": "RequestHeader",
+                "type": "object",
+                "description": "Contiene los encabezados genéricos de aplicación del mensaje",
+                "required": [
+                  "Channel",
+                  "RequestDate",
+                  "MessageID",
+                  "ClientID",
+                  "Destination"
+                ],
+                "properties": {
+                  "Channel": {
+                    "type": "string",
+                    "description": "Canal por el que se envia el mensaje",
+                    "default": "PDA05-C001"
+                  },
+                  "RequestDate": {
+                    "type": "string",
+                    "description": "Datestamp o Timestamp completo, con milisegundos precisión 3",
+                    "default": "2017-06-21T20:26:12.654Z"
+                  },
+                  "MessageID": {
+                    "description": "Identificador unico de la transacción, alfanumérico de longitud 10, atributo con proposito de trazabilidad",
+                    "type": "string",
+                    "default": "1234567890"
+                  },
+                  "ClientID": {
+                    "description": "Terminal, Nodo, Servidor, Contenedor desde donde se lanza la petición, atributo con proposito de trazabilidad",
+                    "type": "string",
+                    "default": "12345"
+                  },
+                  "Destination": {
+                    "title": "Destination",
+                    "type": "object",
+                    "description": "Contiene los atributos que definen la región y versión del servicio",
+                    "required": [
+                      "ServiceName",
+                      "ServiceOperation",
+                      "ServiceRegion",
+                      "ServiceVersion"
+                    ],
+                    "properties": {
+                      "ServiceName": {
+                        "description": "Nombre del servicio a ejecutar",
+                        "type": "string",
+                        "default": "SubscriptionPaymentService"
+                      },
+                      "ServiceOperation": {
+                        "description": "Operación del servicio a ejecutar",
+                        "type": "string",
+                        "default": "newSubscription"
+                      },
+                      "ServiceRegion": {
+                        "description": "Región en el cual se debe ejecutar el servicio",
+                        "type": "string",
+                        "default": "C001"
+                      },
+                      "ServiceVersion": {
+                        "description": "Versión a ejecutar del servicio",
+                        "type": "string",
+                        "default": "1.0.0"
+                      }
+                    }
+                  }
+                }
+              },
+              "RequestBody": {
+                "title": "RequestBody",
+                "type": "object",
+                "description": "Contiene los parametros o cuerpo del servicio a consumir",
+                "required": [
+                  "any"
+                ],
+                "properties": {
+                  "any": {
+                    "title": "any",
+                    "type": "object",
+                    "description": "Contiene el elemento con los atributos especificos del servicio a consumir",
+                    "required": [
+                      "newSubscriptionRQ"
+                    ],
+                    "properties": {
+                      "newSubscriptionRQ": {
+                        "title": "newSubscriptionRQ",
+                        "type": "object",
+                        "description": "Contiene los atributos del servicio de creación de nueva suscripción",
+                        "required": [
+                          "phoneNumber",
+                          "code",
+                          "name"
+                        ],
+                        "properties": {
+                          "phoneNumber": {
+                            "type": "string",
+                            "description": "Número de celular del cliente Nequi a quien se le va a cobrar",
+                            "default": "3998764643"
+                          },
+                          "code": {
+                            "type": "string",
+                            "description": "Tipo y número de identificación del comercio que va a realizar un cobro",
+                            "default": "NIT_1"
+                          },
+                          "name": {
+                            "type": "string",
+                            "format": "number",
+                            "description": "Nombre del comercio con el cual se desea aparezca en el PUSH",
+                            "default": "1"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "NewSubscriptionRS": {
+        "type": "object",
+        "title": "ResponseMessage",
+        "required": [
+          "ResponseMessage"
+        ],
+        "properties": {
+          "ResponseMessage": {
+            "title": "ResponseMessage",
+            "type": "object",
+            "description": "Estructura genérica de la respuesta con los encabezados y el cuerpo",
+            "required": [
+              "ResponseHeader",
+              "ResponseBody"
+            ],
+            "properties": {
+              "ResponseHeader": {
+                "title": "ResponseHeader",
+                "type": "object",
+                "description": "Contiene los encabezados genéricos de aplicación del mensaje",
+                "required": [
+                  "Channel",
+                  "ResponseDate",
+                  "Status",
+                  "MessageID",
+                  "ClientID",
+                  "Destination"
+                ],
+                "properties": {
+                  "Channel": {
+                    "type": "string",
+                    "description": "Canal por el que se envío el mensaje",
+                    "default": "PDA05-C001"
+                  },
+                  "ResponseDate": {
+                    "type": "string",
+                    "description": "Datestamp o Timestamp completo, con milisegundos precisión 3",
+                    "default": "2017-06-21T20:26:12.654Z"
+                  },
+                  "Status": {
+                    "title": "Status",
+                    "type": "object",
+                    "description": "Contiene los atributos que definen el resultado de la operación del servicio",
+                    "required": [
+                      "StatusCode",
+                      "StatusDesc"
+                    ],
+                    "properties": {
+                      "StatusCode": {
+                        "description": "Código que indica el resultado del servicio",
+                        "type": "string",
+                        "default": "0"
+                      },
+                      "StatusDesc": {
+                        "description": "Mensaje sobre el resultado del servicio",
+                        "type": "string",
+                        "default": "SUCCESS"
+                      }
+                    }
+                  },
+                  "MessageID": {
+                    "description": "Retorna el identificador único de la transacción",
+                    "type": "string",
+                    "default": "1234567890"
+                  },
+                  "ClientID": {
+                    "description": "Retorna la Terminal, Nodo, Servidor o Contenedor desde donde se lanzo la petición",
+                    "type": "string",
+                    "default": "12345"
+                  },
+                  "Destination": {
+                    "title": "Destination",
+                    "type": "object",
+                    "description": "Contiene la región y versión con que se ejecutó el servicio",
+                    "required": [
+                      "ServiceName",
+                      "ServiceOperation",
+                      "ServiceRegion",
+                      "ServiceVersion"
+                    ],
+                    "properties": {
+                      "ServiceName": {
+                        "description": "Nombre del servicio ejecutado",
+                        "type": "string",
+                        "default": "SubscriptionPaymentService"
+                      },
+                      "ServiceOperation": {
+                        "description": "Operación del servicio ejecutada",
+                        "type": "string",
+                        "default": "newSubscription"
+                      },
+                      "ServiceRegion": {
+                        "description": "Región en la cual se ejecutó el servicio",
+                        "type": "string",
+                        "default": "C001"
+                      },
+                      "ServiceVersion": {
+                        "description": "Versión del servicio que se ejecuto",
+                        "type": "string",
+                        "default": "1.0.0"
+                      }
+                    }
+                  }
+                }
+              },
+              "ResponseBody": {
+                "title": "ResponseBody",
+                "type": "object",
+                "description": "Contiene el cuerpo con la respuesta del servicio",
+                "required": [
+                  "any"
+                ],
+                "properties": {
+                  "any": {
+                    "title": "any",
+                    "type": "object",
+                    "description": "Contiene el elemento con los atributos especificos de la respuesta del servicio",
+                    "required": [
+                      "newSubscriptionRS"
+                    ],
+                    "properties": {
+                      "newSubscriptionRS": {
+                        "title": "newSubscriptionRS",
+                        "type": "object",
+                        "description": "Contiene los atributos de la respuesta del servicio de pago con notificación Push",
+                        "required": [
+                          "token"
+                        ],
+                        "properties": {
+                          "token": {
+                            "description": "Código requerido para poder hacer el primer pago automatico y para consultar la suscripción, dado que el servicio del pago automático entrega otro token para un futuro pago",
+                            "type": "string",
+                            "default": "YmFzZSA2NCB0b2tlbiB0ZXN0"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "GetSubscriptionRQ": {
+        "type": "object",
+        "title": "RequestMessage",
+        "required": [
+          "RequestMessage"
+        ],
+        "properties": {
+          "RequestMessage": {
+            "title": "RequestMessage",
+            "type": "object",
+            "description": "Estructura genérica del mensaje con los encabezados y el cuerpo",
+            "required": [
+              "RequestHeader",
+              "RequestBody"
+            ],
+            "properties": {
+              "RequestHeader": {
+                "title": "RequestHeader",
+                "type": "object",
+                "description": "Contiene los encabezados genéricos de aplicación del mensaje",
+                "required": [
+                  "Channel",
+                  "RequestDate",
+                  "MessageID",
+                  "ClientID",
+                  "Destination"
+                ],
+                "properties": {
+                  "Channel": {
+                    "type": "string",
+                    "description": "Canal por el que se envia el mensaje",
+                    "default": "PDA05-C001"
+                  },
+                  "RequestDate": {
+                    "type": "string",
+                    "description": "Datestamp o Timestamp completo, con milisegundos precisión 3",
+                    "default": "2017-06-21T20:26:12.654Z"
+                  },
+                  "MessageID": {
+                    "description": "Identificador unico de la transacción, alfanumérico de longitud 10, atributo con proposito de trazabilidad",
+                    "type": "string",
+                    "default": "1234567890"
+                  },
+                  "ClientID": {
+                    "description": "Terminal, Nodo, Servidor, Contenedor desde donde se lanza la petición, atributo con proposito de trazabilidad",
+                    "type": "string",
+                    "default": "12345"
+                  },
+                  "Destination": {
+                    "title": "Destination",
+                    "type": "object",
+                    "description": "Contiene los atributos que definen la región y versión del servicio",
+                    "required": [
+                      "ServiceName",
+                      "ServiceOperation",
+                      "ServiceRegion",
+                      "ServiceVersion"
+                    ],
+                    "properties": {
+                      "ServiceName": {
+                        "description": "Nombre del servicio a ejecutar",
+                        "type": "string",
+                        "default": "SubscriptionPaymentService"
+                      },
+                      "ServiceOperation": {
+                        "description": "Operación del servicio a ejecutar",
+                        "type": "string",
+                        "default": "getubscription"
+                      },
+                      "ServiceRegion": {
+                        "description": "Región en el cual se debe ejecutar el servicio",
+                        "type": "string",
+                        "default": "C001"
+                      },
+                      "ServiceVersion": {
+                        "description": "Versión a ejecutar del servicio",
+                        "type": "string",
+                        "default": "1.0.0"
+                      }
+                    }
+                  }
+                }
+              },
+              "RequestBody": {
+                "title": "RequestBody",
+                "type": "object",
+                "description": "Contiene los parametros o cuerpo del servicio a consumir",
+                "required": [
+                  "any"
+                ],
+                "properties": {
+                  "any": {
+                    "title": "any",
+                    "type": "object",
+                    "description": "Contiene el elemento con los atributos especificos del servicio a consumir",
+                    "required": [
+                      "getSubscriptionRQ"
+                    ],
+                    "properties": {
+                      "getSubscriptionRQ": {
+                        "title": "getSubscriptionRQ",
+                        "type": "object",
+                        "description": "Contiene los atributos del servicio de creación de nueva suscripción",
+                        "required": [
+                          "phoneNumber",
+                          "code",
+                          "token"
+                        ],
+                        "properties": {
+                          "phoneNumber": {
+                            "type": "string",
+                            "description": "Número de celular del cliente Nequi a quien se le va a cobrar",
+                            "default": "3998764643"
+                          },
+                          "code": {
+                            "type": "string",
+                            "description": "Tipo y número de identificación del comercio que va a realizar un cobro",
+                            "default": "NIT_1"
+                          },
+                          "token": {
+                            "type": "string",
+                            "description": "Ultimo token retornado por el servicio de nueva suscripción ",
+                            "default": "YmFzZSA2NCB0b2tlbiB0ZXN0"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "GetSubscriptionRS": {
+        "type": "object",
+        "title": "ResponseMessage",
+        "required": [
+          "ResponseMessage"
+        ],
+        "properties": {
+          "ResponseMessage": {
+            "title": "ResponseMessage",
+            "type": "object",
+            "description": "Estructura genérica de la respuesta con los encabezados y el cuerpo",
+            "required": [
+              "ResponseHeader",
+              "ResponseBody"
+            ],
+            "properties": {
+              "ResponseHeader": {
+                "title": "ResponseHeader",
+                "type": "object",
+                "description": "Contiene los encabezados genéricos de aplicación del mensaje",
+                "required": [
+                  "Channel",
+                  "ResponseDate",
+                  "Status",
+                  "MessageID",
+                  "ClientID",
+                  "Destination"
+                ],
+                "properties": {
+                  "Channel": {
+                    "type": "string",
+                    "description": "Canal por el que se envío el mensaje",
+                    "default": "PDA05-C001"
+                  },
+                  "ResponseDate": {
+                    "type": "string",
+                    "description": "Datestamp o Timestamp completo, con milisegundos precisión 3",
+                    "default": "2017-06-21T20:26:12.654Z"
+                  },
+                  "Status": {
+                    "title": "Status",
+                    "type": "object",
+                    "description": "Contiene los atributos que definen el resultado de la operación del servicio",
+                    "required": [
+                      "StatusCode",
+                      "StatusDesc"
+                    ],
+                    "properties": {
+                      "StatusCode": {
+                        "description": "Código que indica el resultado del servicio",
+                        "type": "string",
+                        "default": "0"
+                      },
+                      "StatusDesc": {
+                        "description": "Mensaje sobre el resultado del servicio",
+                        "type": "string",
+                        "default": "SUCCESS"
+                      }
+                    }
+                  },
+                  "MessageID": {
+                    "description": "Retorna el identificador único de la transacción",
+                    "type": "string",
+                    "default": "1234567890"
+                  },
+                  "ClientID": {
+                    "description": "Retorna la Terminal, Nodo, Servidor o Contenedor desde donde se lanzo la petición",
+                    "type": "string",
+                    "default": "12345"
+                  },
+                  "Destination": {
+                    "title": "Destination",
+                    "type": "object",
+                    "description": "Contiene la región y versión con que se ejecutó el servicio",
+                    "required": [
+                      "ServiceName",
+                      "ServiceOperation",
+                      "ServiceRegion",
+                      "ServiceVersion"
+                    ],
+                    "properties": {
+                      "ServiceName": {
+                        "description": "Nombre del servicio ejecutado",
+                        "type": "string",
+                        "default": "SubscriptionPaymentService"
+                      },
+                      "ServiceOperation": {
+                        "description": "Operación del servicio ejecutada",
+                        "type": "string",
+                        "default": "Subscription"
+                      },
+                      "ServiceRegion": {
+                        "description": "Región en la cual se ejecutó el servicio",
+                        "type": "string",
+                        "default": "C001"
+                      },
+                      "ServiceVersion": {
+                        "description": "Versión del servicio que se ejecuto",
+                        "type": "string",
+                        "default": "1.0.0"
+                      }
+                    }
+                  }
+                }
+              },
+              "ResponseBody": {
+                "title": "ResponseBody",
+                "type": "object",
+                "description": "Contiene el cuerpo con la respuesta del servicio",
+                "required": [
+                  "any"
+                ],
+                "properties": {
+                  "any": {
+                    "title": "any",
+                    "type": "object",
+                    "description": "Contiene el elemento con los atributos especificos de la respuesta del servicio",
+                    "required": [
+                      "getSubscriptionRS"
+                    ],
+                    "properties": {
+                      "getSubscriptionRS": {
+                        "title": "getSubscriptionRS",
+                        "type": "object",
+                        "description": "Contiene los atributos de la respuesta del servicio de pago con notificación Push",
+                        "required": [
+                          "dateCreated",
+                          "name",
+                          "status"
+                        ],
+                        "properties": {
+                          "dateCreated": {
+                            "description": "Fecha de la crecion de la consulta",
+                            "type": "string",
+                            "default": "2017-08-25T12:00:00.000Z"
+                          },
+                          "name": {
+                            "description": "Nombre del comercio asociado",
+                            "type": "string",
+                            "default": "Nequi"
+                          },
+                          "status": {
+                            "description": "Estado de la suscripción",
+                            "type": "string",
+                            "default": "0"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "AutomaticPaymentRQ": {
+        "type": "object",
+        "title": "RequestMessage",
+        "required": [
+          "RequestMessage"
+        ],
+        "properties": {
+          "RequestMessage": {
+            "title": "RequestMessage",
+            "type": "object",
+            "description": "Estructura genérica del mensaje con los encabezados y el cuerpo",
+            "required": [
+              "RequestHeader",
+              "RequestBody"
+            ],
+            "properties": {
+              "RequestHeader": {
+                "title": "RequestHeader",
+                "type": "object",
+                "description": "Contiene los encabezados genéricos de aplicación del mensaje",
+                "required": [
+                  "Channel",
+                  "RequestDate",
+                  "MessageID",
+                  "ClientID",
+                  "Destination"
+                ],
+                "properties": {
+                  "Channel": {
+                    "type": "string",
+                    "description": "Canal por el que se envia el mensaje",
+                    "default": "PDA05-C001"
+                  },
+                  "RequestDate": {
+                    "type": "string",
+                    "description": "Datestamp o Timestamp completo, con milisegundos precisión 3",
+                    "default": "2017-06-21T20:26:12.654Z"
+                  },
+                  "MessageID": {
+                    "description": "Identificador unico de la transacción, alfanumérico de longitud 10, atributo con proposito de trazabilidad",
+                    "type": "string",
+                    "default": "1234567890"
+                  },
+                  "ClientID": {
+                    "description": "Terminal, Nodo, Servidor, Contenedor desde donde se lanza la petición, atributo con proposito de trazabilidad",
+                    "type": "string",
+                    "default": "12345"
+                  },
+                  "Destination": {
+                    "title": "Destination",
+                    "type": "object",
+                    "description": "Contiene los atributos que definen la región y versión del servicio",
+                    "required": [
+                      "ServiceName",
+                      "ServiceOperation",
+                      "ServiceRegion",
+                      "ServiceVersion"
+                    ],
+                    "properties": {
+                      "ServiceName": {
+                        "description": "Nombre del servicio a ejecutar",
+                        "type": "string",
+                        "default": "SubscriptionPaymentService"
+                      },
+                      "ServiceOperation": {
+                        "description": "Operación del servicio a ejecutar",
+                        "type": "string",
+                        "default": "automaticPayment"
+                      },
+                      "ServiceRegion": {
+                        "description": "Región en el cual se debe ejecutar el servicio",
+                        "type": "string",
+                        "default": "C001"
+                      },
+                      "ServiceVersion": {
+                        "description": "Versión a ejecutar del servicio",
+                        "type": "string",
+                        "default": "1.0.0"
+                      }
+                    }
+                  }
+                }
+              },
+              "RequestBody": {
+                "title": "RequestBody",
+                "type": "object",
+                "description": "Contiene los parametros o cuerpo del servicio a consumir",
+                "required": [
+                  "any"
+                ],
+                "properties": {
+                  "any": {
+                    "title": "any",
+                    "type": "object",
+                    "description": "Contiene el elemento con los atributos especificos del servicio a consumir",
+                    "required": [
+                      "automaticPaymentRQ"
+                    ],
+                    "properties": {
+                      "automaticPaymentRQ": {
+                        "title": "automaticPaymentRQ",
+                        "type": "object",
+                        "description": "Contiene los atributos del servicio de creación de nueva suscripción",
+                        "required": [
+                          "phoneNumber",
+                          "code",
+                          "value",
+                          "token"
+                        ],
+                        "properties": {
+                          "phoneNumber": {
+                            "type": "string",
+                            "description": "Número de celular del cliente Nequi a quien se le va a cobrar",
+                            "default": "3998764643"
+                          },
+                          "code": {
+                            "type": "string",
+                            "description": "Tipo y número de identificación del comercio que va a realizar un cobro",
+                            "default": "NIT_1"
+                          },
+                          "value": {
+                            "type": "string",
+                            "format": "number",
+                            "description": "Valor a cobrar",
+                            "default": "1000"
+                          },
+                          "token": {
+                            "type": "string",
+                            "description": "Ultimo token retornado por el servicio de nueva suscripción ",
+                            "default": "YmFzZSA2NCB0b2tlbiB0ZXN0"
+                          },
+                          "reference1": {
+                            "type": "string",
+                            "description": "Campo opcional para guardar información adicional de la transacción",
+                            "default": "reference1"
+                          },
+                          "reference2": {
+                            "type": "string",
+                            "description": "Campo opcional para guardar información adicional de la transacción",
+                            "default": "reference2"
+                          },
+                          "reference3": {
+                            "type": "string",
+                            "description": "Campo opcional para guardar información adicional de la transacción",
+                            "default": "reference3"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "AutomaticPaymentRS": {
+        "type": "object",
+        "title": "ResponseMessage",
+        "required": [
+          "ResponseMessage"
+        ],
+        "properties": {
+          "ResponseMessage": {
+            "title": "ResponseMessage",
+            "type": "object",
+            "description": "Estructura genérica de la respuesta con los encabezados y el cuerpo",
+            "required": [
+              "ResponseHeader",
+              "ResponseBody"
+            ],
+            "properties": {
+              "ResponseHeader": {
+                "title": "ResponseHeader",
+                "type": "object",
+                "description": "Contiene los encabezados genéricos de aplicación del mensaje",
+                "required": [
+                  "Channel",
+                  "ResponseDate",
+                  "Status",
+                  "MessageID",
+                  "ClientID",
+                  "Destination"
+                ],
+                "properties": {
+                  "Channel": {
+                    "type": "string",
+                    "description": "Canal por el que se envío el mensaje",
+                    "default": "PDA05-C001"
+                  },
+                  "ResponseDate": {
+                    "type": "string",
+                    "description": "Datestamp o Timestamp completo, con milisegundos precisión 3",
+                    "default": "2017-06-21T20:26:12.654Z"
+                  },
+                  "Status": {
+                    "title": "Status",
+                    "type": "object",
+                    "description": "Contiene los atributos que definen el resultado de la operación del servicio",
+                    "required": [
+                      "StatusCode",
+                      "StatusDesc"
+                    ],
+                    "properties": {
+                      "StatusCode": {
+                        "description": "Código que indica el resultado del servicio",
+                        "type": "string",
+                        "default": "0"
+                      },
+                      "StatusDesc": {
+                        "description": "Mensaje sobre el resultado del servicio",
+                        "type": "string",
+                        "default": "SUCCESS"
+                      }
+                    }
+                  },
+                  "MessageID": {
+                    "description": "Retorna el identificador único de la transacción",
+                    "type": "string",
+                    "default": "1234567890"
+                  },
+                  "ClientID": {
+                    "description": "Retorna la Terminal, Nodo, Servidor o Contenedor desde donde se lanzo la petición",
+                    "type": "string",
+                    "default": "12345"
+                  },
+                  "Destination": {
+                    "title": "Destination",
+                    "type": "object",
+                    "description": "Contiene la región y versión con que se ejecutó el servicio",
+                    "required": [
+                      "ServiceName",
+                      "ServiceOperation",
+                      "ServiceRegion",
+                      "ServiceVersion"
+                    ],
+                    "properties": {
+                      "ServiceName": {
+                        "description": "Nombre del servicio ejecutado",
+                        "type": "string",
+                        "default": "SubscriptionPaymentService"
+                      },
+                      "ServiceOperation": {
+                        "description": "Operación del servicio ejecutada",
+                        "type": "string",
+                        "default": "automaticPayment"
+                      },
+                      "ServiceRegion": {
+                        "description": "Región en la cual se ejecutó el servicio",
+                        "type": "string",
+                        "default": "C001"
+                      },
+                      "ServiceVersion": {
+                        "description": "Versión del servicio que se ejecuto",
+                        "type": "string",
+                        "default": "1.0.0"
+                      }
+                    }
+                  }
+                }
+              },
+              "ResponseBody": {
+                "title": "ResponseBody",
+                "type": "object",
+                "description": "Contiene el cuerpo con la respuesta del servicio",
+                "required": [
+                  "any"
+                ],
+                "properties": {
+                  "any": {
+                    "title": "any",
+                    "type": "object",
+                    "description": "Contiene el elemento con los atributos especificos de la respuesta del servicio",
+                    "required": [
+                      "automaticPaymentRS"
+                    ],
+                    "properties": {
+                      "automaticPaymentRS": {
+                        "title": "automaticPaymentRS",
+                        "type": "object",
+                        "description": "Contiene los atributos de la respuesta del servicio de pago con notificación Push",
+                        "required": [
+                          "transactionId",
+                          "token"
+                        ],
+                        "properties": {
+                          "transactionId": {
+                            "description": "Identificador de la transacción que se usa en el servicio de validacion o consulta de estado de pago",
+                            "type": "string",
+                            "default": "350-913294628-2471-C001"
+                          },
+                          "token": {
+                            "description": "Nuevo token para usar en los servicios que lo requieran",
+                            "type": "string",
+                            "default": "YmFzZSA2NCB0b2tlbiB0ZXN0"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "GetStatusPaymentRQ": {
+        "type": "object",
+        "title": "RequestMessage",
+        "required": [
+          "RequestMessage"
+        ],
+        "properties": {
+          "RequestMessage": {
+            "title": "RequestMessage",
+            "type": "object",
+            "description": "Estructura genérica del mensaje con los encabezados y el cuerpo",
+            "required": [
+              "RequestHeader",
+              "RequestBody"
+            ],
+            "properties": {
+              "RequestHeader": {
+                "title": "RequestHeader",
+                "type": "object",
+                "description": "Contiene los encabezados genéricos de aplicación del mensaje",
+                "required": [
+                  "Channel",
+                  "RequestDate",
+                  "MessageID",
+                  "ClientID",
+                  "Destination"
+                ],
+                "properties": {
+                  "Channel": {
+                    "type": "string",
+                    "description": "Canal por el que se envia el mensaje",
+                    "default": "PDA05-C001"
+                  },
+                  "RequestDate": {
+                    "type": "string",
+                    "description": "Datestamp o Timestamp completo, con milisegundos precisión 3",
+                    "default": "2017-06-21T20:26:12.654Z"
+                  },
+                  "MessageID": {
+                    "description": "Identificador unico de la transacción, alfanumérico de longitud 10, atributo con proposito de trazabilidad",
+                    "type": "string",
+                    "default": "1234567890"
+                  },
+                  "ClientID": {
+                    "description": "Terminal, Nodo, Servidor, Contenedor desde donde se lanza la petición, atributo con proposito de trazabilidad",
+                    "type": "string",
+                    "default": "12345"
+                  },
+                  "Destination": {
+                    "title": "Destination",
+                    "type": "object",
+                    "description": "Contiene los atributos que definen la región y versión del servicio",
+                    "required": [
+                      "ServiceName",
+                      "ServiceOperation",
+                      "ServiceRegion",
+                      "ServiceVersion"
+                    ],
+                    "properties": {
+                      "ServiceName": {
+                        "description": "Nombre del servicio a ejecutar",
+                        "type": "string",
+                        "default": "PaymentsService"
+                      },
+                      "ServiceOperation": {
+                        "description": "Operación del servicio a ejecutar",
+                        "type": "string",
+                        "default": "getStatusPayment"
+                      },
+                      "ServiceRegion": {
+                        "description": "Región en el cual se debe ejecutar el servicio",
+                        "type": "string",
+                        "default": "C001"
+                      },
+                      "ServiceVersion": {
+                        "description": "Versión a ejecutar del servicio",
+                        "type": "string",
+                        "default": "1.0.0"
+                      }
+                    }
+                  }
+                }
+              },
+              "RequestBody": {
+                "title": "RequestBody",
+                "type": "object",
+                "description": "Contiene los parametros o cuerpo del servicio a consumir",
+                "required": [
+                  "any"
+                ],
+                "properties": {
+                  "any": {
+                    "title": "any",
+                    "type": "object",
+                    "description": "Contiene el elemento con los atributos especificos del servicio a consumir",
+                    "required": [
+                      "getStatusPaymentRQ"
+                    ],
+                    "properties": {
+                      "getStatusPaymentRQ": {
+                        "title": "getStatusPaymentRQ",
+                        "type": "object",
+                        "description": "Contiene los atributos del servicio de consulta de estado de pago",
+                        "required": [
+                          "codeQR"
+                        ],
+                        "properties": {
+                          "codeQR": {
+                            "type": "string",
+                            "description": "Identificador único o código del pago que se genera con el anterior servicio para generación de código QR",
+                            "default": "350-913291938-2471-C001"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "GetStatusPaymentRS": {
+        "type": "object",
+        "title": "ResponseMessage",
+        "required": [
+          "ResponseMessage"
+        ],
+        "properties": {
+          "ResponseMessage": {
+            "title": "ResponseMessage",
+            "type": "object",
+            "description": "Estructura genérica de la respuesta con los encabezados y el cuerpo",
+            "required": [
+              "ResponseHeader",
+              "ResponseBody"
+            ],
+            "properties": {
+              "ResponseHeader": {
+                "title": "ResponseHeader",
+                "type": "object",
+                "description": "Contiene los encabezados genéricos de aplicación del mensaje",
+                "required": [
+                  "Channel",
+                  "ResponseDate",
+                  "Status",
+                  "MessageID",
+                  "ClientID",
+                  "Destination"
+                ],
+                "properties": {
+                  "Channel": {
+                    "type": "string",
+                    "description": "Canal por el que se envío el mensaje",
+                    "default": "PDA05-C001"
+                  },
+                  "ResponseDate": {
+                    "type": "string",
+                    "description": "Datestamp o Timestamp completo, con milisegundos precisión 3",
+                    "default": "2017-06-21T20:26:12.654Z"
+                  },
+                  "Status": {
+                    "title": "Status",
+                    "type": "object",
+                    "description": "Contiene los atributos que definen el resultado de la operación del servicio",
+                    "required": [
+                      "StatusCode",
+                      "StatusDesc"
+                    ],
+                    "properties": {
+                      "StatusCode": {
+                        "description": "Código que indica el resultado del servicio",
+                        "type": "string",
+                        "default": "0"
+                      },
+                      "StatusDesc": {
+                        "description": "Mensaje sobre el resultado del servicio",
+                        "type": "string",
+                        "default": "SUCCESS"
+                      }
+                    }
+                  },
+                  "MessageID": {
+                    "description": "Retorna el identificador único de la transacción",
+                    "type": "string",
+                    "default": "1234567890"
+                  },
+                  "ClientID": {
+                    "description": "Retorna la Terminal, Nodo, Servidor o Contenedor desde donde se lanzo la petición",
+                    "type": "string",
+                    "default": "12345"
+                  },
+                  "Destination": {
+                    "title": "Destination",
+                    "type": "object",
+                    "description": "Contiene la región y versión con que se ejecutó el servicio",
+                    "required": [
+                      "ServiceName",
+                      "ServiceOperation",
+                      "ServiceRegion",
+                      "ServiceVersion"
+                    ],
+                    "properties": {
+                      "ServiceName": {
+                        "description": "Nombre del servicio ejecutado",
+                        "type": "string",
+                        "default": "PaymentsService"
+                      },
+                      "ServiceOperation": {
+                        "description": "Operación del servicio ejecutada",
+                        "type": "string",
+                        "default": "getStatusPayment"
+                      },
+                      "ServiceRegion": {
+                        "description": "Región en la cual se ejecutó el servicio",
+                        "type": "string",
+                        "default": "C001"
+                      },
+                      "ServiceVersion": {
+                        "description": "Versión del servicio que se ejecuto",
+                        "type": "string",
+                        "default": "1.0.0"
+                      }
+                    }
+                  }
+                }
+              },
+              "ResponseBody": {
+                "title": "ResponseBody",
+                "type": "object",
+                "description": "Contiene el cuerpo con la respuesta del servicio",
+                "required": [
+                  "any"
+                ],
+                "properties": {
+                  "any": {
+                    "title": "any",
+                    "type": "object",
+                    "description": "Contiene el elemento con los atributos especificos de la respuesta del servicio",
+                    "required": [
+                      "getStatusPaymentRS"
+                    ],
+                    "properties": {
+                      "getStatusPaymentRS": {
+                        "title": "getStatusPaymentRS",
+                        "type": "object",
+                        "description": "Contiene los atributos de la respuesta del servicio de consulta de estado de pago",
+                        "required": [
+                          "status",
+                          "name",
+                          "value",
+                          "date",
+                          "trnId",
+                          "originMoney",
+                          "ipAddress"
+                        ],
+                        "properties": {
+                          "status": {
+                            "description": "Estado del pago",
+                            "type": "string",
+                            "default": "33"
+                          },
+                          "name": {
+                            "description": "Nombre del comercio cobrador",
+                            "type": "string",
+                            "default": "Test"
+                          },
+                          "value": {
+                            "description": "Valor a pagar",
+                            "type": "string",
+                            "default": "1"
+                          },
+                          "date": {
+                            "description": "Fecha de la generación del pago",
+                            "type": "string",
+                            "default": "Junio 22 - 2017 | 10:18 AM"
+                          },
+                          "trnId": {
+                            "description": "Código o identificador único del pago en el core financiero",
+                            "type": "string",
+                            "default": "      M28"
+                          },
+                          "originMoney": {
+                            "description": "Array con los objetos que describen el origen desde donde se hizo el pago, viene vacio cuando el pago no se ha realizado o se ha cancelado",
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "title": "originMoney",
+                              "description": "Atributos que describen el origen del dinero con que se realizo el pago",
+                              "properties": {
+                                "name": {
+                                  "description": "Origen",
+                                  "type": "string",
+                                  "default": "Disponible"
+                                },
+                                "pocketType": {
+                                  "description": "Tipo de bolsillo",
+                                  "type": "string",
+                                  "default": "4"
+                                },
+                                "value": {
+                                  "description": "Valor debitado desde este origen",
+                                  "type": "string",
+                                  "default": "1"
+                                }
+                              }
+                            }
+                          },
+                          "ipAddress": {
+                            "description": "IP desde donde se realizo el pago",
+                            "type": "string",
+                            "default": ""
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
